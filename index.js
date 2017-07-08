@@ -22,6 +22,7 @@ module.exports = {
     })
   },
   checkTodayCommit: function (id, cb) {
+    let status = false;
     this.getUserRepos(id, (res) => {
       res.map((repo) => {
         const rDate = repo.pushed_at;
@@ -31,12 +32,10 @@ module.exports = {
         // const rHour = dateFormat(rDate, "HH");
 
         if (this._cYear === rYear && this._cMonth === rMonth && this._cDay === rDay) {
-          cb(true);
+          status = !status;
         }
-        // console.log(dateFormat(rDate, "yyyy-mm-dd HH:MM:ss"));
-      })
-      cb(false);
-      // console.log(dateFormat(this._cDate, "yyyy-mm-dd'T'hh:MM:ss"));
-    })
+      });
+      cb(status);
+    });
   }
 };
