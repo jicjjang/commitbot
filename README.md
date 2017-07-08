@@ -1,2 +1,2 @@
-# gitbot
-Gitbot for dooray messenger in NHN.
+# commitbot
+Github commitbot for dooray messenger in NHN.

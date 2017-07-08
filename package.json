@@ -1,7 +1,7 @@
 {
-  "name": "gitbot",
+  "name": "commitbot",
   "version": "0.0.1",
-  "description": "Gitbot for dooray messenger in NHN.",
+  "description": "Github commitbot for dooray messenger in NHN.",
   "main": "index.js",
   "scripts": {
     "test": "node test/index",
