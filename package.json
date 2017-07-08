@@ -1,0 +1,34 @@
+{
+  "name": "gitbot",
+  "version": "0.0.0",
+  "description": "Gitbot for dooray messenger in NHN.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/index",
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jicjjang/gitbot.git"
+  },
+  "keywords": [
+    "NHN",
+    "nhnent",
+    "bot",
+    "gitbot",
+    "npm",
+    "node",
+    "js",
+    "dooray"
+  ],
+  "author": "jicjjang <jicjjang12@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jicjjang/gitbot/issues"
+  },
+  "homepage": "https://github.com/jicjjang/gitbot#readme",
+  "dependencies": {
+    "dateformat": "^2.0.0",
+    "request": "^2.81.0"
+  }
+}
