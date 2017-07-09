@@ -1,6 +1,6 @@
 {
   "name": "commitbot",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Github commitbot for dooray messenger in NHN.",
   "main": "index.js",
   "scripts": {
