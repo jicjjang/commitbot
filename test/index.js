@@ -1,9 +1,21 @@
-const gitbot = require('../index');
+const commitbot = require('../index');
 
-gitbot.getUserRepos('jicjjang', (res) => {
+commitbot.getUserRepos('jicjjang', (res) => {
   // console.log(res[0]);
 });
 
-gitbot.checkTodayCommit('jicjjang', (res) => {
-  // console.log(res);
-});
+(function (commitbot) {
+  const arr = ['jicjjang', 'wan2land'];
+
+  let result = {};
+  Promise.all(
+    arr.map((id) => {
+      return commitbot.checkTodayCommit(id).then(res => {
+        result[id] = res;
+      })
+    })
+  ).then(() => {
+    console.log(result);
+    return result;
+  });
+})(commitbot);

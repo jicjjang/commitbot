@@ -1,4 +1,4 @@
-const request = require('request');
+const rp = require('request-promise');
 const dateFormat = require('dateformat');
 
 module.exports = {
@@ -6,24 +6,22 @@ module.exports = {
   _cYear: dateFormat(this._cDate, "yyyy"),
   _cMonth: dateFormat(this._cDate, "mm"),
   _cDay: dateFormat(this._cDate, "dd"),
-  getUserRepos: function (id, cb) {
-    request({
+  getUserRepos: function (id) {
+    return rp({
       uri: 'https://api.github.com/users/' + id + '/repos',
       method: 'GET',
       headers: {
-        'User-Agent': 'request'
+        'User-Agent': 'Request-Promise'
       }
-    }, 'https://api.github.com/users/' + id + '/repos', (err, res, body) => {
-      if (!err && res.statusCode == 200) {
-        cb(JSON.parse(body));
-      } else {
-        console.log(err);
-      }
-    })
+    }).then(res => {
+      return JSON.parse(res);
+    }).catch(err => {
+      return null;
+    });
   },
-  checkTodayCommit: function (id, cb) {
+  checkTodayCommit: function (id) {
     let status = false;
-    this.getUserRepos(id, (res) => {
+    return this.getUserRepos(id).then(res => {
       res.map((repo) => {
         const rDate = repo.pushed_at;
         const rYear = dateFormat(rDate, "yyyy");
@@ -35,7 +33,7 @@ module.exports = {
           status = !status;
         }
       });
-      cb(status);
+      return status;
     });
   }
 };
