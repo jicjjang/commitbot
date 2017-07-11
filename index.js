@@ -2,16 +2,13 @@ const rp = require('request-promise');
 const dateFormat = require('dateformat');
 
 module.exports = {
-  _cDate: new Date(),
-  _cYear: dateFormat(this._cDate, "yyyy"),
-  _cMonth: dateFormat(this._cDate, "mm"),
-  _cDay: dateFormat(this._cDate, "dd"),
   getUserRepos: function (id) {
     return rp({
       uri: 'https://api.github.com/users/' + id + '/repos',
       method: 'GET',
       headers: {
-        'User-Agent': 'Request-Promise'
+        'User-Agent': 'Request-Promise',
+        'Cache-Control': 'max-age=0, private, must-revalidate'
       }
     }).then(res => {
       return JSON.parse(res);
@@ -24,13 +21,12 @@ module.exports = {
     return this.getUserRepos(id).then(res => {
       res.map((repo) => {
         const rDate = repo.pushed_at;
-        const rYear = dateFormat(rDate, "yyyy");
-        const rMonth = dateFormat(rDate, "mm");
-        const rDay = dateFormat(rDate, "dd");
-        // const rHour = dateFormat(rDate, "HH");
-
-        if (this._cYear === rYear && this._cMonth === rMonth && this._cDay === rDay) {
-          status = !status;
+        const today = new Date();
+        
+        if (dateFormat(today, 'yyyy') === dateFormat(rDate, 'yyyy')
+          && dateFormat(today, 'mm') === dateFormat(rDate, 'mm')
+          && dateFormat(today, 'dd') === dateFormat(rDate, 'dd')) {
+          status = true;
         }
       });
       return status;
